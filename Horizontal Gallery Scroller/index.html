@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Horizontal Gallery Scroller</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(226, 214, 43);
+    }
+
+    .container {
+      height: 700px;
+      width: 1400px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      white-space: nowrap;
+      user-select: none;
+      font-size: 0;
+      border: 2px white solid;
+    }
+
+    .container.active {
+      /* https://developer.mozilla.org/en-US/docs/Web/CSS/cursor */
+      cursor: grabbing;
+    }
+
+    .item {
+      width: 700px;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- img*15[src="img/$.jpg"][class="item-$ item"][alt="img"] -->
+    <img src="img/1.jpg" alt="img" class="item-1 item" />
+    <img src="img/2.jpg" alt="img" class="item-2 item" />
+    <img src="img/3.jpg" alt="img" class="item-3 item" />
+    <img src="img/4.jpg" alt="img" class="item-4 item" />
+    <img src="img/5.jpg" alt="img" class="item-5 item" />
+    <img src="img/6.jpg" alt="img" class="item-6 item" />
+    <img src="img/7.jpg" alt="img" class="item-7 item" />
+    <img src="img/8.jpg" alt="img" class="item-8 item" />
+    <img src="img/9.jpg" alt="img" class="item-9 item" />
+    <img src="img/10.jpg" alt="img" class="item-10 item" />
+    <img src="img/11.jpg" alt="img" class="item-11 item" />
+    <img src="img/12.jpg" alt="img" class="item-12 item" />
+    <img src="img/13.jpg" alt="img" class="item-13 item" />
+    <img src="img/14.jpg" alt="img" class="item-14 item" />
+    <img src="img/15.jpg" alt="img" class="item-15 item" />
+  </div>
+  <!-- ------------------------- -->
+  <!-- JS File -->
+  <script>
+    const slider = document.querySelector(".container");
+    let isDown = false;
+    let startx;
+    let scrollToLeft;
+
+    slider.addEventListener("mousedown", function (e) {
+      isDown = true;
+      slider.classList.add("active");
+
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetLeft
+      startx = e.pageX - slider.offsetLeft;
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollLeft
+      scrollToLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener("mouseup", function () {
+      isDown = false;
+      slider.classList.remove("active");
+    });
+
+    slider.addEventListener("mouseleave", function () {
+      isDown = false;
+      slider.classList.remove("active");
+    });
+
+    slider.addEventListener("mousemove", function (e) {
+      if (!isDown) return;
+      e.preventDefault();
+
+      const distanceX = e.pageX - slider.offsetLeft;
+      const walk = distanceX - startx;
+      slider.scrollLeft = scrollToLeft - walk;
+    });
+
+  </script>
+</body>
+
+</html>

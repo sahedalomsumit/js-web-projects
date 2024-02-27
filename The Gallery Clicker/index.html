@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>The Gallery Clicker</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .all-imgs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .all-imgs img {
+      height: 20vh;
+      width: 200px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .preview-img {
+      height: 100vh;
+    }
+
+    .current-img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .animate-imgs {
+      opacity: 0.5;
+      animation: animate-imgs 0.4s ease-in-out forwards;
+    }
+
+    @keyframes animate-imgs {
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="all-imgs">
+      <img src="img/1.jpg" />
+      <img src="img/2.jpg" />
+      <img src="img/3.jpg" />
+      <img src="img/4.jpg" />
+      <img src="img/5.jpg" />
+    </div>
+
+    <div class="preview-img">
+      <img src="img/1.jpg" class="current-img" />
+    </div>
+
+    <div class="all-imgs">
+      <img src="img/6.jpg" />
+      <img src="img/7.jpg" />
+      <img src="img/8.jpg" />
+      <img src="img/9.jpg" />
+      <img src="img/10.jpg" />
+    </div>
+  </div>
+
+  <!-- --------------------------- -->
+  <!-- JS File -->
+  <script>
+    const currentImg = document.querySelector(".current-img");
+    const imgs = document.querySelectorAll(".all-imgs img");
+
+    imgs.forEach(function (img) {
+      img.addEventListener("click", function (e) {
+        currentImg.src = e.target.src;
+
+        currentImg.classList.add("animate-imgs");
+        setTimeout(function () {
+          currentImg.classList.remove("animate-imgs");
+        }, 400);
+      });
+    });
+
+  </script>
+</body>
+
+</html>

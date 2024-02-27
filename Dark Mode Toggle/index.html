@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Dark Mode Toggle</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      --color-primary: #333;
+      --color-secondary: #fff;
+      --color-secondary-m: hsla(0, 0%, 100%, 0.5);
+    }
+
+    html[data-theme="dark"] {
+      --color-primary: #fff;
+      --color-secondary: #333;
+      --color-secondary-m: rgba(51, 51, 51, 0.5);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+      background-image: url("birdy-the-bird.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      color: var(--color-primary);
+      transition: all 0.5s ease-in-out;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="checkbox"] {
+      cursor: pointer;
+      position: relative;
+      width: 60px;
+      height: 35px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border-radius: 20px;
+      transition: all 0.5s ease-in-out;
+      outline: none;
+      position: relative;
+      margin: 50px;
+    }
+
+    input:checked[type="checkbox"] {
+      background-color: #d3de32;
+    }
+
+    input:not(:checked)[type="checkbox"] {
+      background-color: #900d0d;
+    }
+
+    input[type="checkbox"]::before,
+    input[type="checkbox"]::after {
+      content: "";
+      position: absolute;
+      top: 30%;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: white;
+      transition: all 0.5s ease-in-out;
+    }
+
+    input[type="checkbox"]::before {
+      left: 0.5rem;
+    }
+
+    input[type="checkbox"]::after {
+      right: 0.5rem;
+    }
+
+    input:checked[type="checkbox"]::before {
+      left: 37%;
+      box-shadow: none;
+    }
+
+    input:checked[type="checkbox"]::after {
+      right: 38%;
+      box-shadow: none;
+    }
+
+    section {
+      padding: 50px;
+      background-color: var(--color-secondary-m);
+      transition: all 0.5s ease-in-out;
+    }
+
+    section h2 {
+      color: var(--color-primary);
+      margin-bottom: 20px;
+      font-size: 40px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    section p {
+      color: var(--color-primary);
+      transition: all 0.5s ease-in-out;
+    }
+
+    html.transition,
+    html.transition *,
+    html.transition *::before,
+    html.transition *::after {
+      transition: all 0.5s !important;
+      transition-delay: 0 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Toggle Button -->
+  <div class="toggle-container">
+    <input type="checkbox" id="toggle" name="theme" />
+  </div>
+
+  <!-- Website Content -->
+  <section>
+    <h2>Birds</h2>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima vel,
+      quibusdam minus similique libero odit cum ex earum voluptatem sit
+      voluptatum, animi porro ducimus amet blanditiis eum tempora aut totam.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima vel,
+      quibusdam minus similique libero odit cum ex earum voluptatem sit
+      voluptatum, animi porro ducimus amet blanditiis eum tempora aut totam.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima vel,
+      quibusdam minus similique libero odit cum ex earum voluptatem sit
+      voluptatum, animi porro ducimus amet blanditiis eum tempora aut totam.
+    </p>
+  </section>
+  <script>
+    const checkBox = document.querySelector('input[name="theme"]');
+    let htmlElement = document.documentElement;
+
+    checkBox.addEventListener("click", function () {
+      if (checkBox.checked) {
+        htmlElement.classList.toggle("transition");
+        htmlElement.setAttribute("data-theme", "dark");
+      } else {
+        htmlElement.classList.toggle("transition");
+        htmlElement.setAttribute("data-theme", "light");
+      }
+    });
+
+  </script>
+</body>
+
+</html>

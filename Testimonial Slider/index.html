@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Testimonial Slider</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.8;
+      background-color: #59405c;
+      color: white;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .testimonials {
+      height: 100%;
+      width: 100%;
+      padding: 50px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 60px;
+      font-weight: 300;
+      margin-bottom: 50px;
+    }
+
+    .content {
+      max-width: 100rem;
+      margin: 0 auto;
+    }
+
+    .slider {
+      max-width: 60rem;
+      margin: 0 auto;
+      text-align: center;
+      padding: 2vh 1vw;
+    }
+
+    .slide {
+      display: none;
+    }
+
+    .slide h3 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .slide-para {
+      font-size: 25px;
+      font-weight: 100;
+    }
+
+    .slide.active {
+      display: block;
+      animation: slide 1s linear;
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translateX(-2rem);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .indicator {
+      padding-top: 4vh;
+      padding-bottom: 4vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .indicator img {
+      height: calc(7rem + 6vw);
+      width: calc(7rem + 6vw);
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 2vh 2vw;
+      opacity: 0.2;
+      border: 0.2rem solid #fddb3a;
+      cursor: pointer;
+      transition: opacity 1s ease;
+    }
+
+    .indicator img.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="testimonials">
+    <h2 class="title">Testimonials</h2>
+    <div class="content">
+      <!-- Slider -->
+      <div class="slider">
+        <!-- Slide 1 -->
+        <div class="slide active">
+          <p class="slide-para">
+            " Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+            autem placeat natus iste aut inventore voluptas nesciunt
+            consectetur quod sint. "
+          </p>
+          <h3 class="slide-title">
+            John
+          </h3>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+          <p class="slide-para">
+            " Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+            autem placeat natus iste aut inventore voluptas nesciunt
+            consectetur quod sint. "
+          </p>
+          <h3 class="slide-title">
+            Clint
+          </h3>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+          <p class="slide-para">
+            " Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+            autem placeat natus iste aut inventore voluptas nesciunt
+            consectetur quod sint. "
+          </p>
+          <h3 class="slide-title">
+            Stacia
+          </h3>
+        </div>
+      </div>
+
+      <!-- Indicator -->
+      <div class="indicator">
+        <img src="img/testimonial-1.jpg" alt="testimonial-1" class="indicator-img active" data-id="0" />
+        <img src="img/testimonial-2.jpg" alt="testimonial-2" class="indicator-img" data-id="1" />
+        <img src="img/testimonial-3.jpg" alt="testimonial-3" class="indicator-img" data-id="2" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------- -->
+  <!-- JS File -->
+  <script>
+    const slides = document.querySelector(".slider").children;
+    const indicatorImgs = document.querySelector(".indicator").children;
+
+    for (let i = 0; i < indicatorImgs.length; i++) {
+      indicatorImgs[i].addEventListener("click", function () {
+        for (let j = 0; j < indicatorImgs.length; j++) {
+          indicatorImgs[j].classList.remove("active");
+        }
+
+        indicatorImgs[i].classList.add("active");
+
+        const id = indicatorImgs[i].getAttribute("data-id");
+        for (let k = 0; k < slides.length; k++) {
+          slides[k].classList.remove("active");
+        }
+
+        slides[id].classList.add("active");
+      });
+    }
+
+  </script>
+</body>
+
+</html>

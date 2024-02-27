@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Navbar Effect</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0px;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+      /* background-color: hsla(0, 0%, 50%, 0); */
+      background-color: black;
+    }
+
+    nav {
+      margin: auto;
+      width: 90%;
+      min-height: 9vh;
+      line-height: 9vh;
+    }
+
+    nav ul {
+      flex: 1;
+      font-size: 20px;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    ul li {
+      margin: 0 20px;
+      list-style: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 17px;
+    }
+
+    section {
+      min-height: 100vh;
+    }
+
+    section img {
+      height: 100vh;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    /*   color: coral;
+  color: chartreuse;
+  color: chocolate;
+  color: cadetblue; */
+
+    .trans {
+      position: absolute;
+      z-index: -10;
+      background-color: coral;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a data-page="home" href="#">Home</a></li>
+        <li><a data-page="about" href="#">About</a></li>
+        <li><a data-page="services" href="#">Services</a></li>
+        <li><a data-page="contact" href="#">Contact</a></li>
+        <div class="trans"></div>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section data-index="0" class="home">
+      <img src="img/1.jpg" alt="" />
+    </section>
+
+    <section data-index="1" class="about">
+      <img src="img/2.jpg" alt="" />
+    </section>
+
+    <section data-index="2" class="services">
+      <img src="img/3.jpg" alt="" />
+    </section>
+
+    <section data-index="3" class="contact">
+      <img src="img/4.jpg" alt="" />
+    </section>
+  </main>
+
+  <!-- ---------------------------------------------------- -->
+  <!-- JS File -->
+  <script>
+    // Resources
+    /*
+    // --------------------------------------------------------------------
+    // for the yoda developers out there
+    // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+    
+    // https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry/isIntersecting
+    // --------------------------------------------------------------------
+    */
+    const sections = document.querySelectorAll("section");
+    const trans = document.querySelector(".trans");
+    const gradients = ["coral", "chartreuse", "chocolate", "cadetblue"];
+
+    const options = {
+      threshold: 0.7,
+    };
+
+    let observer = new IntersectionObserver(navScroll, options);
+
+    function navScroll(entries) {
+      entries.forEach(function (entry) {
+        // console.log(entry);
+        const className = entry.target.className;
+        const activeLink = document.querySelector(`[data-page="${className}"]`);
+        const elementIndex = entry.target.getAttribute("data-index");
+        const coordinates = activeLink.getBoundingClientRect();
+        const directions = {
+          height: coordinates.height,
+          width: coordinates.width,
+          top: coordinates.top,
+          left: coordinates.left,
+        };
+
+        if (entry.isIntersecting) {
+          trans.style.setProperty("height", `${directions.height}px`);
+          trans.style.setProperty("width", `${directions.width}px`);
+          trans.style.setProperty("top", `${directions.top}px`);
+          trans.style.setProperty("left", `${directions.left}px`);
+          trans.style.backgroundColor = gradients[elementIndex];
+        }
+      });
+    }
+
+    sections.forEach(function (section) {
+      observer.observe(section);
+    });
+
+  </script>
+</body>
+
+</html>

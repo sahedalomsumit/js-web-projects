@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Simple Drag & Drop</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #26191b;
+      color: #fff;
+    }
+
+    h1 {
+      margin: 50px;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 100;
+    }
+
+    .lists-container {
+      width: 1300px;
+      height: 550px;
+      margin: 0 auto;
+      display: flex;
+      /* overflow-x: scroll; */
+    }
+
+    .list {
+      background-color: rgba(88, 65, 83, 0.5);
+
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+      min-width: 200px;
+      max-width: 300px;
+      height: 100%;
+      min-height: 150px;
+      margin: 0 20px;
+      transition: all 0.25s ease-in;
+    }
+
+    .list-item {
+      background-color: hsl(300, 18%, 62%);
+      padding: 15px 20px;
+      text-align: center;
+      margin: 8px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Simple Drag & Drop</h1>
+  <div class="lists-container">
+    <div class="list">
+      <div class="list-item" draggable="true">Item 1</div>
+      <div class="list-item" draggable="true">Item 2</div>
+      <div class="list-item" draggable="true">Item 3</div>
+      <div class="list-item" draggable="true">Item 4</div>
+      <div class="list-item" draggable="true">Item 5</div>
+      <div class="list-item" draggable="true">Item 6</div>
+      <div class="list-item" draggable="true">Item 7</div>
+      <div class="list-item" draggable="true">Item 8</div>
+    </div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+  </div>
+  <!-- ---------------------- -->
+  <!-- JS File -->
+  <script>
+    const lists = document.querySelectorAll(".list");
+    const listItems = document.querySelectorAll(".list-item");
+
+    let draggedItem = null;
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+    for (let a = 0; a < listItems.length; a++) {
+      const item = listItems[a];
+
+      item.addEventListener("dragstart", function () {
+        draggedItem = item;
+        setTimeout(function () {
+          item.style.display = "none";
+        }, 50);
+      });
+
+      item.addEventListener("dragend", function () {
+        setTimeout(() => {
+          item.style.display = "block";
+          draggedItem = null;
+        }, 50);
+      });
+
+      for (let b = 0; b < lists.length; b++) {
+        const list = lists[b];
+
+        list.addEventListener("dragover", function (e) {
+          e.preventDefault();
+        });
+
+        list.addEventListener("dragenter", function (e) {
+          e.preventDefault();
+          list.style.backgroundColor = "rgba(255, 255, 255, 0.7)";
+        });
+
+        list.addEventListener("dragleave", function () {
+          list.style.backgroundColor = " rgba(88, 65, 83, 0.5)";
+        });
+
+        list.addEventListener("drop", function () {
+          list.append(draggedItem);
+          list.style.backgroundColor = " rgba(88, 65, 83, 0.5)";
+        });
+      }
+    }
+
+  </script>
+</body>
+
+</html>
